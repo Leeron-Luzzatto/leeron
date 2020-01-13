@@ -4,7 +4,7 @@
 #include "ParkingLotTypes.h"
 #include "Time.h"
 #include "ParkingSpot.h"
-#include "UniqueArray.h"
+#include "IteratedUniqueArray.h"
 #include "Vehicle.h"
 
 using Vehicle::Vehicle;

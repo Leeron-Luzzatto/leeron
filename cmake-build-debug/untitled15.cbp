@@ -80,6 +80,18 @@
 				</MakeCommands>
 			</Target>
 		</Build>
+		<Unit filename="C:/Users/Dell/Documents/GitHub/leeron/Car.h">
+			<Option target="UniqueArrayImp.h"/>
+		</Unit>
+		<Unit filename="C:/Users/Dell/Documents/GitHub/leeron/Handicapped.h">
+			<Option target="UniqueArrayImp.h"/>
+		</Unit>
+		<Unit filename="C:/Users/Dell/Documents/GitHub/leeron/IteratedUniqueArray.h">
+			<Option target="UniqueArrayImp.h"/>
+		</Unit>
+		<Unit filename="C:/Users/Dell/Documents/GitHub/leeron/Motorbike.h">
+			<Option target="UniqueArrayImp.h"/>
+		</Unit>
 		<Unit filename="C:/Users/Dell/Documents/GitHub/leeron/MtmParkingLot.cpp">
 			<Option target="UniqueArrayImp.h"/>
 		</Unit>
@@ -111,6 +123,12 @@
 			<Option target="UniqueArrayImp.h"/>
 		</Unit>
 		<Unit filename="C:/Users/Dell/Documents/GitHub/leeron/UniqueArray.h">
+			<Option target="UniqueArrayImp.h"/>
+		</Unit>
+		<Unit filename="C:/Users/Dell/Documents/GitHub/leeron/Vehicle.cpp">
+			<Option target="UniqueArrayImp.h"/>
+		</Unit>
+		<Unit filename="C:/Users/Dell/Documents/GitHub/leeron/Vehicle.h">
 			<Option target="UniqueArrayImp.h"/>
 		</Unit>
 		<Unit filename="C:/Users/Dell/Documents/GitHub/leeron/CMakeLists.txt">

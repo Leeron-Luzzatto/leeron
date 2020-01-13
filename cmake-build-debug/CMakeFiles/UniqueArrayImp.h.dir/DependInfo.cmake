@@ -9,6 +9,7 @@ set(CMAKE_DEPENDS_CHECK_CXX
   "C:/Users/Dell/Documents/GitHub/leeron/ParkingLotPrinter.cpp" "C:/Users/Dell/Documents/GitHub/leeron/cmake-build-debug/CMakeFiles/UniqueArrayImp.h.dir/ParkingLotPrinter.cpp.obj"
   "C:/Users/Dell/Documents/GitHub/leeron/ParkingSpot.cpp" "C:/Users/Dell/Documents/GitHub/leeron/cmake-build-debug/CMakeFiles/UniqueArrayImp.h.dir/ParkingSpot.cpp.obj"
   "C:/Users/Dell/Documents/GitHub/leeron/Time.cpp" "C:/Users/Dell/Documents/GitHub/leeron/cmake-build-debug/CMakeFiles/UniqueArrayImp.h.dir/Time.cpp.obj"
+  "C:/Users/Dell/Documents/GitHub/leeron/Vehicle.cpp" "C:/Users/Dell/Documents/GitHub/leeron/cmake-build-debug/CMakeFiles/UniqueArrayImp.h.dir/Vehicle.cpp.obj"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 

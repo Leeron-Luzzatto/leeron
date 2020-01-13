@@ -257,6 +257,33 @@ Time.cpp.s:
 	$(MAKE) -f CMakeFiles\UniqueArrayImp.h.dir\build.make CMakeFiles/UniqueArrayImp.h.dir/Time.cpp.s
 .PHONY : Time.cpp.s
 
+Vehicle.obj: Vehicle.cpp.obj
+
+.PHONY : Vehicle.obj
+
+# target to build an object file
+Vehicle.cpp.obj:
+	$(MAKE) -f CMakeFiles\UniqueArrayImp.h.dir\build.make CMakeFiles/UniqueArrayImp.h.dir/Vehicle.cpp.obj
+.PHONY : Vehicle.cpp.obj
+
+Vehicle.i: Vehicle.cpp.i
+
+.PHONY : Vehicle.i
+
+# target to preprocess a source file
+Vehicle.cpp.i:
+	$(MAKE) -f CMakeFiles\UniqueArrayImp.h.dir\build.make CMakeFiles/UniqueArrayImp.h.dir/Vehicle.cpp.i
+.PHONY : Vehicle.cpp.i
+
+Vehicle.s: Vehicle.cpp.s
+
+.PHONY : Vehicle.s
+
+# target to generate assembly for a file
+Vehicle.cpp.s:
+	$(MAKE) -f CMakeFiles\UniqueArrayImp.h.dir\build.make CMakeFiles/UniqueArrayImp.h.dir/Vehicle.cpp.s
+.PHONY : Vehicle.cpp.s
+
 # Help Target
 help:
 	@echo The following are some of the valid targets for this Makefile:
@@ -281,6 +308,9 @@ help:
 	@echo ... Time.obj
 	@echo ... Time.i
 	@echo ... Time.s
+	@echo ... Vehicle.obj
+	@echo ... Vehicle.i
+	@echo ... Vehicle.s
 .PHONY : help
 
 

@@ -6,15 +6,24 @@
 #include "ParkingSpot.h"
 #include "UniqueArray.h"
 #include "Vehicle.h"
+#include "Car.h"
+#include "Handicapped.h"
+#include "Motorbike.h"
 
-using Vehicle::Vehicle;
+
+
 
 namespace MtmParkingLot {
 
+    using Vehicle::Car;
+    using Vehicle::Handicapped;
+    using Vehicle::Motorbike;
     using namespace ParkingLotUtils;
     using std::ostream;
 
     class ParkingLot {
+    private:
+        UniqueArray<Car,
     public:
 
         ParkingLot(unsigned int parkingBlockSizes[]);

@@ -11,8 +11,6 @@ using ParkingLotUtils::Time;
 
 namespace Vehicle {
 
-	const unsigned int handicapped_price = 15;
-
 	class Handicapped : public Car {
 	public:
 		explicit Handicapped(LicensePlate licensePlate, Time entrance) :
@@ -21,8 +19,7 @@ namespace Vehicle {
 
 		Handicapped(const Handicapped& other) = default;
 		
-		unsigned int getPrice(Time exit, unsigned int fine) const override final {
-			return handicapped_price; }
+		unsigned int getPrice(Time exit, unsigned int fine) const override final { return 15; }
 	};
 }
 #endif //HANDICAPPED_H

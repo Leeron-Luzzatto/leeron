@@ -1,4 +1,9 @@
 #include "Vehicle.h"
+#include <iostream>
+#include "ParkingLotPrinter.h"
+
+using std::ostream;
+using ParkingLotUtils::ParkingLotPrinter;
 
 namespace Vehicle {
 	unsigned int Vehicle::getPrice(Time exit, unsigned int fine) const {
@@ -12,4 +17,9 @@ namespace Vehicle {
 		}
 		return price + fine * fines_counter;
 	}
+
+	ostream& operator<<(ostream& os, Vehicle vehicle) {
+		return ParkingLotPrinter::printVehicle(os,vehicle.type,vehicle.licensePlate,
+			vehicle.entrance);
+		}
 }

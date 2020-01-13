@@ -5,7 +5,7 @@ template <class Element, class Compare = std::equal_to<Element>>
 class UniqueArray {
 	Element** data;
 	const int size;
-    unsigned int iterator;
+    int iterator;
 
     bool availableIndex(unsigned int& index);
 public:

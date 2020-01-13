@@ -1,8 +1,11 @@
 #ifndef MTMPARKINGLOT_UNIQUEARRAYLMP_H
 #define MTMPARKINGLOT_UNIQUEARRAYLMP_H
 
+const int iterator_undefine = -1;
+
 template <class Element, class Compare>
-UniqueArray<Element,Compare>::UniqueArray(unsigned int size): data(new Element*[size]), size(size){
+UniqueArray<Element,Compare>::UniqueArray(unsigned int size): data(new Element*[size]), size(size),
+iterator(iterator_undefine){
 	for (unsigned int i = 0; i < size; ++i) {
 		data[i] = NULL;
 	}
@@ -10,7 +13,7 @@ UniqueArray<Element,Compare>::UniqueArray(unsigned int size): data(new Element*[
 
 template <class Element, class Compare>
 UniqueArray<Element, Compare>::UniqueArray(const UniqueArray& other): data(new Element*[other.size]),
-size(other.size) {
+size(other.size), iterator(other.iterator){
 	for (int i = 0; i < size; ++i) {
 		if (other.data[i] == NULL) {
 			data[i] = NULL;
@@ -81,6 +84,7 @@ bool UniqueArray<Element, Compare>::remove(const Element& element) {
 	}
 	delete data[index];
 	data[index] = NULL;
+	getFirst();
 	return true;
 }
 
@@ -98,6 +102,30 @@ unsigned int UniqueArray<Element, Compare>::getCount() const{
 template <class Element, class Compare>
 unsigned int UniqueArray<Element,Compare>::getSize() const{
 	return size;
+}
+
+template <class Element, class Compare>
+Element& UniqueArray<Element, Compare>::getNext(){
+	for (int i = iterator; i < size; ++i) {
+		if (data[i] != NULL) {
+			iterator = i;
+			return *data[i];
+		}
+	}
+	getFirst();
+	return NULL;
+}
+
+template <class Element, class Compare>
+Element& UniqueArray<Element, Compare>::getFirst(){
+	for (int i = 0; i < size; ++i) {
+		if (data[i] != NULL) {
+			iterator = i;
+			return *data[i];
+		}
+	}
+	iterator = iterator_undefine;
+	return NULL;
 }
 
 template <class Element, class Compare>

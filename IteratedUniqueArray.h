@@ -14,6 +14,11 @@ public:
     Element& getNext();
     Element& getFirst();
 
+    class Filter {
+    public:
+        virtual bool operator() (const Element&) const = 0;
+    };
+    IteratedUniqueArray filter(const Filter& f) const;
     class UniqueArrayIsEmptyException{};
 };
 

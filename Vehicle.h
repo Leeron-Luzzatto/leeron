@@ -16,7 +16,7 @@ namespace Vehicle {
 		VehicleType type;
 		LicensePlate licensePlate;
 		Time entrance;
-		unsigned int fines_counter;
+		bool fine;
 		Time max_time;
 		unsigned int price_for_first;
 		unsigned int price_for_extra;
@@ -25,7 +25,7 @@ namespace Vehicle {
 		explicit Vehicle(VehicleType vehicleType, LicensePlate licensePlate, Time entrance,
 			Time max_time=Time(), unsigned int price_for_first=0, unsigned int price_for_extra=0)
 			: type(vehicleType), licensePlate(licensePlate), entrance(entrance),max_time(max_time),
-			fines_counter(0), price_for_first(price_for_first), price_for_extra(price_for_extra){
+			fine(false), price_for_first(price_for_first), price_for_extra(price_for_extra){
 		}
 
 		Vehicle(const Vehicle& other) = default;
@@ -33,7 +33,7 @@ namespace Vehicle {
 		VehicleType getType() const { return type; }
 		LicensePlate getLicensePlate() const { return licensePlate; }
 		Time getEntranceTime() const { return entrance; }
-		void fineVehicle() { fines_counter++; }
+		void fineVehicle() { fine=true; }
 		virtual unsigned int getPrice(Time exit, unsigned int fine) const;
 		friend ostream& operator<<(ostream& os, Vehicle vehicle);
 

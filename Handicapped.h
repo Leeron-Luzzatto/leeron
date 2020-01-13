@@ -16,7 +16,7 @@ namespace Vehicle {
 	class Handicapped : public Car {
 	public:
 		explicit Handicapped(LicensePlate licensePlate, Time entrance) :
-			Car(HANDICAPPED, licensePlate, entrance) {
+			Car(licensePlate, entrance, ParkingLotUtils::HANDICAPPED) {
 		}
 
 		Handicapped(const Handicapped& other) = default;

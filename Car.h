@@ -17,9 +17,9 @@ namespace Vehicle {
 
 	class Car: public Vehicle {
 	public:
-		explicit Car(LicensePlate licensePlate, Time entrance):
-			Vehicle(ParkingLotUtils::CAR, licensePlate, entrance, Time(0, car_max_hour,0),
-				car_first_price, car_extra_price) {
+		explicit Car(LicensePlate licensePlate, Time entrance,
+			VehicleType type= ParkingLotUtils::CAR): Vehicle(type, licensePlate, entrance,
+				Time(0, car_max_hour,0), car_first_price, car_extra_price) {
 		}
 
 		Car(const Car& other) = default;

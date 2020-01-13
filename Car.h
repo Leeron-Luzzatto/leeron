@@ -14,8 +14,7 @@ namespace Vehicle {
 	class Car: public Vehicle {
 	public:
 		explicit Car(LicensePlate licensePlate, Time entrance):
-			Vehicle(ParkingLotUtils::CAR, licensePlate, entrance, Time(0,6,0),
-			        20, 10) {
+			Vehicle(CAR, licensePlate, entrance, Time(0,6,0), 20, 10) {
 		}
 
 		Car(const Car& other) = default;

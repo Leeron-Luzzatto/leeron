@@ -18,7 +18,7 @@ namespace Vehicle {
 	class Car: public Vehicle {
 	public:
 		explicit Car(LicensePlate licensePlate, Time entrance):
-			Vehicle(CAR, licensePlate, entrance, Time(0, car_max_hour,0),
+			Vehicle(ParkingLotUtils::CAR, licensePlate, entrance, Time(0, car_max_hour,0),
 				car_first_price, car_extra_price) {
 		}
 

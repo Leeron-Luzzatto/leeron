@@ -17,7 +17,7 @@ namespace Vehicle {
 	class Motorbike : public Vehicle {
 	public:
 		explicit Motorbike(LicensePlate licensePlate, Time entrance) :
-			Vehicle(MOTORBIKE, licensePlate, entrance, Time(0, motorbike_max_hour, 0),
+			Vehicle(ParkingLotUtils::MOTORBIKE, licensePlate, entrance, Time(0, motorbike_max_hour, 0),
 				motorbike_first_price, motorbike_extra_price) {
 		}
 

@@ -1,5 +1,6 @@
 #ifndef MTMPARKINGLOT_UNIQUEARRAY_H
 #define MTMPARKINGLOT_UNIQUEARRAY_H
+#include <iostream>
 
 template <class Element, class Compare = std::equal_to<Element>>
 class UniqueArray {
@@ -25,10 +26,27 @@ public:
     };
     UniqueArray filter(const Filter& f) const;
     class UniqueArrayIsFullException{};
-    
+
+    class iterator {
+        UniqueArray* const unique_array;
+        int index;
+
+        int initializeIterator();
+        static const int end_unique_array = -1;
+    public:
+        iterator(UniqueArray unique_array);
+        iterator(const iterator& i) = default;
+        iterator& operator=(const iterator&) = default;
+        Element& operator*() const;
+        iterator& operator++(); // ++x
+        bool operator==(const iterator& other) const = default;
+        bool operator!=(const iterator& other) const = default;
+    };
+    friend iterator;
+    iterator& begin();
+    iterator& end();
 };
 
 #include "UniqueArrayImp.h"
-
 
 #endif //MTMPARKINGLOT_UNIQUEARRAY_H

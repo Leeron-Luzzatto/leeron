@@ -5,7 +5,7 @@
 using std::ostream;
 using ParkingLotUtils::ParkingLotPrinter;
 
-namespace Vehicle {
+namespace MtmParkingLot {
 	unsigned int Vehicle::getPrice(Time exit, unsigned int fine_price) const {
 		Time::Hour parking_duration = (exit - entrance).toHours();
 		if (parking_duration > max_time.toHours()) {
@@ -18,8 +18,8 @@ namespace Vehicle {
 		return price + fine_price * fine;
 	}
 
-	ostream& operator<<(ostream& os, Vehicle vehicle) {
-		return ParkingLotPrinter::printVehicle(os,vehicle.type,vehicle.licensePlate,
-			vehicle.entrance);
+	ostream& operator<<(ostream& os, const Vehicle& vehicle) {
+		return ParkingLotPrinter::printVehicle(os,vehicle.getType(),
+			vehicle.licensePlate, vehicle.entrance);
 		}
 }

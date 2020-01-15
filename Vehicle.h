@@ -10,42 +10,34 @@ using ParkingLotUtils::VehicleType;
 using ParkingLotUtils::LicensePlate;
 using ParkingLotUtils::Time;
 
-namespace Vehicle {
+namespace MtmParkingLot {
 
 	class Vehicle {
-		VehicleType type;
 		LicensePlate licensePlate;
 		Time entrance;
 		bool fine;
 		Time max_time;
-		unsigned int price_for_first;
 		unsigned int price_for_extra;
+		unsigned int price_for_first;
 
 	public:
-		explicit Vehicle(VehicleType vehicleType, LicensePlate licensePlate, Time entrance,
-			Time max_time=Time(), unsigned int price_for_first=0, unsigned int price_for_extra=0)
-			: type(vehicleType), licensePlate(licensePlate), entrance(entrance),max_time(max_time),
-			fine(false), price_for_first(price_for_first), price_for_extra(price_for_extra){
+		explicit Vehicle(LicensePlate licensePlate, Time entrance, Time max_time=Time(),
+			unsigned int price_for_extra=0, unsigned int price_for_first = 0)
+			: licensePlate(licensePlate), entrance(entrance),max_time(max_time),
+			fine(false), price_for_extra(price_for_extra), price_for_first(price_for_first) {
 		}
 
 		Vehicle(const Vehicle& other) = default;
 
-		VehicleType getType() const { return type; }
+		virtual VehicleType getType() const = 0;
 		LicensePlate getLicensePlate() const { return licensePlate; }
 		Time getEntranceTime() const { return entrance; }
 		void fineVehicle() { fine=true; }
-		virtual unsigned int getPrice(Time exit, unsigned int fine) const;
-		friend ostream& operator<<(ostream& os, Vehicle vehicle);
-
-		class Compare {
-		public:
-			Compare() = default;
-			Compare(const Compare&) = default;
-			bool operator()(Vehicle vehicle_one, Vehicle vehicle_two) const {
-				return vehicle_one.licensePlate == vehicle_two.licensePlate;
-			}
-		};
-
+		bool operator==(const Vehicle& other) const{
+			return licensePlate == other.licensePlate;
+		}
+		unsigned int getPrice(Time exit, unsigned int fine) const;
+		friend ostream& operator<<(ostream& os, const Vehicle& vehicle);
 	};
 }
 #endif //VEHICLE_H

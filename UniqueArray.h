@@ -1,6 +1,5 @@
 #ifndef MTMPARKINGLOT_UNIQUEARRAY_H
 #define MTMPARKINGLOT_UNIQUEARRAY_H
-#include <iostream>
 
 template <class Element, class Compare = std::equal_to<Element>>
 class UniqueArray {
@@ -16,6 +15,7 @@ public:
     unsigned int insert(const Element& element);
     bool getIndex(const Element& element, unsigned int& index) const;
     const Element* operator[] (const Element& element) const;
+    bool operator== (const UniqueArray& other) const;
     bool remove(const Element& element);
     unsigned int getCount() const;
     unsigned int getSize() const;
@@ -28,23 +28,25 @@ public:
     class UniqueArrayIsFullException{};
 
     class iterator {
-        UniqueArray* const unique_array;
+        UniqueArray const unique_array;
         int index;
 
-        int initializeIterator();
+        explicit iterator(UniqueArray unique_array, int index);
+        int initializeIterator(int start=0) const;
         static const int end_unique_array = -1;
     public:
         iterator(UniqueArray unique_array);
         iterator(const iterator& i) = default;
-        iterator& operator=(const iterator&) = default;
+        iterator& operator=(const iterator& other) = default;
         Element& operator*() const;
-        iterator& operator++(); // ++x
-        bool operator==(const iterator& other) const = default;
-        bool operator!=(const iterator& other) const = default;
+        iterator& operator++(); // postfix increment
+        bool operator==(const iterator& other) const;
+        bool operator!=(const iterator& other) const;
+        friend class UniqueArray<Element, Compare>;
     };
-    friend iterator;
-    iterator& begin();
-    iterator& end();
+    friend class iterator;
+    iterator begin() const;
+    iterator end() const;
 };
 
 #include "UniqueArrayImp.h"

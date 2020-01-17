@@ -48,6 +48,9 @@ namespace MtmParkingLot{
         for(int b=0; b<vehicle_types; b++){
             block=(VehicleType)b;
             for(UniqueArray<Vehicle>::iterator i= blocks[block].begin(); i!=blocks[block].end(); ++i)
+                if((*i).getLicensePlate()==licensePlate){
+                    parkingSpot = ParkingSpot()
+                }
 
         }
     }

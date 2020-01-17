@@ -1,5 +1,6 @@
 #include "ParkingLot.h"
 #include "ParkingLotPrinter.h"
+#include "UniqueArray.h"
 #include "Vehicle.h"
 #include "Car.h"
 #include "Motorbike.h"
@@ -42,14 +43,46 @@ namespace MtmParkingLot{
         return false;
     }
 
+    ParkingResult ParkingLot::getParkingSpot(LicensePlate licensePlate, ParkingSpot& parkingSpot) const{
+        VehicleType block;
+        for(int b=0; b<vehicle_types; b++){
+            block=(VehicleType)b;
+            for(UniqueArray<Vehicle>::iterator i= blocks[block].begin(); i!=blocks[block].end(); ++i)
+
+        }
+    }
+
+    bool ParkingLot::isEmptyBlock4Vehicle(VehicleType type, VehicleType &block) const{
+        if(blocks[type].getSize()>blocks[type].getCount()){
+            block=type;
+            return true;
+        }
+        else if(type==HANDICAPPED && blocks[CAR].getSize()>blocks[CAR].getCount()){
+            block=CAR;
+            return true;
+        }
+        return false;
+    }
+
     ParkingResult ParkingLot::enterParking(VehicleType vehicleType, LicensePlate licensePlate, Time entranceTime){
         Vehicle* new_v=createVehicle(vehicleType, licensePlate, entranceTime);
         unsigned int index;
-        if(isExist(*new_v)){
-            cout<<*new_v<<endl;
-            ParkingLotPrinter::printEntryFailureAlreadyParked(cout,)
+        VehicleType block=MOTORBIKE;
+        cout<<*new_v<<endl;
+        if(isExist(*new_v, block, index)){
+            ParkingLotPrinter::printEntryFailureAlreadyParked(cout, ParkingSpot(block, index));
+            delete(new_v);
+            return VEHICLE_ALREADY_PARKED;
         }
-
+        if(isEmptyBlock4Vehicle(vehicleType, block)){
+            index=blocks[block].insert(*new_v);
+            ParkingLotPrinter::printEntrySuccess(cout, ParkingSpot(block, index));
+            delete(new_v);
+            return SUCCESS;
+        }
+        ParkingLotPrinter::printEntryFailureNoSpot(cout);
+        delete(new_v);
+        return NO_EMPTY_SPOT;
     }
 
 }

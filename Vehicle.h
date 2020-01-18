@@ -14,6 +14,8 @@ using ParkingLotUtils::ParkingSpot;
 
 namespace MtmParkingLot {
 
+    const VehicleType default_vehicle_type=VehicleType::MOTORBIKE;//just 4 init.
+
 	class Vehicle {
 		LicensePlate licensePlate;
 		Time entrance;
@@ -25,16 +27,16 @@ namespace MtmParkingLot {
 
 	public:
 		explicit Vehicle(LicensePlate licensePlate, Time entrance, Time max_time=Time(),
-			ParkingSpot spot=ParkingSpot((VehicleType)0, 0),
-			unsigned int price_for_extra=0, unsigned int price_for_first = 0)
+			unsigned int price_for_extra=0, unsigned int price_for_first = 0,
+			ParkingSpot spot=ParkingSpot((VehicleType)0, 0))
 			: licensePlate(licensePlate), entrance(entrance),max_time(max_time),
-			spot(spot), fine(false), price_for_extra(price_for_extra), price_for_first(price_for_first) {
+			 fine(false), price_for_extra(price_for_extra), price_for_first(price_for_first), spot(spot) {
 		}
 
 		Vehicle(const Vehicle& other) = default;
         virtual ParkingSpot getSpot() const { return  spot; }
         virtual void setSpot(const ParkingSpot& new_spot) {spot=new_spot;}
-		virtual VehicleType getType() const = 0;
+		virtual VehicleType getType() const { return default_vehicle_type; }
 		LicensePlate getLicensePlate() const { return licensePlate; }
 		Time getEntranceTime() const { return entrance; }
         bool fineVehicle(const Time& inspection_time);

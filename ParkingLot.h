@@ -17,6 +17,9 @@ namespace MtmParkingLot {
 
     class ParkingLot {
         vector<UniqueArray<Vehicle> > blocks;
+
+        static Vehicle* createVehicle(VehicleType vehicleType,
+                const LicensePlate& licensePlate, const Time& entranceTime);
         bool isEmptyBlock4Vehicle(const VehicleType& type, VehicleType& block) const;
         ParkingResult getVehicle(const ParkingSpot& spot, Vehicle* result) const;
         void insertVehicleToBlock(VehicleType vehicleType, LicensePlate licensePlate,

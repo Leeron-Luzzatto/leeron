@@ -23,7 +23,8 @@ namespace MtmParkingLot{
         blocks.push_back((UniqueArray<Vehicle>(parkingBlockSizes[i])));
     }
 
-    Vehicle* createVehicle(VehicleType vehicleType, const LicensePlate& licensePlate, const Time& entranceTime){
+    Vehicle* ParkingLot::createVehicle(VehicleType vehicleType, const LicensePlate& licensePlate,
+            const Time& entranceTime){
         if(vehicleType==CAR) return new Car(licensePlate, entranceTime);
         if(vehicleType==MOTORBIKE) return new Motorbike(licensePlate, entranceTime);
         return new Handicapped(licensePlate, entranceTime);

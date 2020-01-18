@@ -6,11 +6,14 @@
 #include "Motorbike.h"
 #include "Handicapped.h"
 #include <iostream>
+#include <algorithm>
+#include <vector>
 
 namespace MtmParkingLot{
 
     using std::cout;
     using std::endl;
+    using std::sort;
 
     const int vehicle_types=3;
 
@@ -29,11 +32,12 @@ namespace MtmParkingLot{
     ParkingResult ParkingLot::getVehicle(const ParkingSpot &spot, Vehicle* result) const {
         VehicleType block=spot.getParkingBlock();
         unsigned index=spot.getParkingNumber();
-        for(UniqueArray<Vehicle>::iterator i=blocks[block].begin(); i!=blocks[block].end(); ++i)
-            if (i.getIndex()==index){
-                result=&(*i);
+        for(UniqueArray<Vehicle>::iterator i=blocks[block].begin(); i!=blocks[block].end(); ++i) {
+            if ((*i).getSpot().getParkingNumber() == index) {
+                result = &(*i);
                 return SUCCESS;
             }
+        }
         return VEHICLE_NOT_FOUND;
     }
 
@@ -43,7 +47,7 @@ namespace MtmParkingLot{
             block=(VehicleType)b;
             for(UniqueArray<Vehicle>::iterator i= blocks[block].begin(); i!=blocks[block].end(); ++i)
                 if((*i).getLicensePlate()==licensePlate){
-                    parkingSpot = ParkingSpot(block, i.getIndex());
+                    parkingSpot = (*i).getSpot();
                     return SUCCESS;
                 }
         }
@@ -62,8 +66,20 @@ namespace MtmParkingLot{
         return false;
     }
 
+    void ParkingLot::insertVehicleToBlock(VehicleType vehicleType, LicensePlate licensePlate,
+                              Time entranceTime, VehicleType block){
+        Vehicle* new_v=createVehicle(vehicleType, licensePlate, entranceTime);
+        cout<<*new_v<<endl;
+        unsigned index=blocks[block].insert(*new_v);
+        delete(new_v);
+        Vehicle* v;
+        getVehicle(ParkingSpot(block, index), v); // init *v
+        v->setSpot(ParkingSpot(block, index));
+        ParkingLotPrinter::printEntrySuccess(cout, ParkingSpot(block, index));
+    }
+
     ParkingResult ParkingLot::enterParking(VehicleType vehicleType, LicensePlate licensePlate, Time entranceTime){
-        ParkingSpot spot(MOTORBIKE);
+        ParkingSpot spot(MOTORBIKE); //temporary init
         if(getParkingSpot(licensePlate, spot)){
             Vehicle* found= nullptr;
             getVehicle(spot, found);
@@ -71,18 +87,27 @@ namespace MtmParkingLot{
             ParkingLotPrinter::printEntryFailureAlreadyParked(cout, spot);
             return VEHICLE_ALREADY_PARKED;
         }
-        Vehicle* new_v=createVehicle(vehicleType, licensePlate, entranceTime);
-        cout<<*new_v<<endl;
-        VehicleType block=MOTORBIKE;
+        VehicleType block=MOTORBIKE; //temporary init
         if(isEmptyBlock4Vehicle(vehicleType, block)){
-            unsigned index=blocks[block].insert(*new_v);
-            ParkingLotPrinter::printEntrySuccess(cout, ParkingSpot(block, index));
-            delete(new_v);
+            insertVehicleToBlock(vehicleType, licensePlate, entranceTime, block);
             return SUCCESS;
         }
         ParkingLotPrinter::printEntryFailureNoSpot(cout);
-        delete(new_v);
         return NO_EMPTY_SPOT;
+    }
+
+    ParkingResult ParkingLot::exitParking(LicensePlate licensePlate, Time exitTime){
+        ParkingSpot spot(MOTORBIKE); //temporary init
+        if(!getParkingSpot(licensePlate, spot)){
+            ParkingLotPrinter::printExitFailure(cout, licensePlate);
+            return VEHICLE_NOT_FOUND;
+        }
+        Vehicle* found= nullptr;
+        getVehicle(spot, found); // we've made sure the vehicle does exist. so found!=nullptr
+        cout<<*found<<endl;
+        ParkingLotPrinter::printExitSuccess(cout, spot, exitTime, (*found).getPrice(exitTime, fine_price));
+        blocks[spot.getParkingBlock()].remove(*found);
+        return SUCCESS;
     }
 
     void ParkingLot::inspectParkingLot(Time inspectionTime){
@@ -99,4 +124,26 @@ namespace MtmParkingLot{
         ParkingLotPrinter::printInspectionResult(cout, inspectionTime, fines);
     }
 
+    //function used for sorting vector of vehicles by their spot in ascending order.
+    bool diffBySpot(const Vehicle& v1, const Vehicle& v2){
+        return (v1.getSpot()<v2.getSpot());
+    }
+
+    ostream& operator<<(ostream& os, const ParkingLot& parkingLot) {
+        vector<Vehicle> all_vehicles; //we'll put al vehicles into one single vector
+        VehicleType block;
+        for(int b=0; b<vehicle_types; b++){
+            block=(VehicleType)b;
+            for(UniqueArray<Vehicle>::iterator i= parkingLot.blocks[block].begin();
+            i!=parkingLot.blocks[block].end(); ++i)
+               all_vehicles.push_back(*i);
+        }
+        sort(all_vehicles.begin(), all_vehicles.end(), diffBySpot);
+        ParkingLotPrinter::printParkingLotTitle(os);
+        for(vector<Vehicle>::const_iterator i=all_vehicles.begin(); i!=all_vehicles.end(); i++){
+            os<<(*i);
+            ParkingLotPrinter::printParkingSpot(os,(*i).getSpot());
+        }
+        return os;
+    }
 }

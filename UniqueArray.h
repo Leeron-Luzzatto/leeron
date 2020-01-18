@@ -42,7 +42,6 @@ public:
         iterator& operator++(); // postfix increment
         bool operator==(const iterator& other) const;
         bool operator!=(const iterator& other) const;
-        int getIndex() const;
         friend class UniqueArray<Element, Compare>;
     };
     friend class iterator;

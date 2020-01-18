@@ -17,8 +17,8 @@ namespace MtmParkingLot {
 
     class ParkingLot {
         vector<UniqueArray<Vehicle> > blocks;
-        bool isExist(const Vehicle& v,VehicleType& block, unsigned int& index) const;
-        bool isEmptyBlock4Vehicle(VehicleType type, VehicleType& block) const;
+        bool isEmptyBlock4Vehicle(const VehicleType& type, VehicleType& block) const;
+        ParkingResult getVehicle(const ParkingSpot& spot, Vehicle* result) const;
     public:
 
         explicit ParkingLot(unsigned int parkingBlockSizes[]);

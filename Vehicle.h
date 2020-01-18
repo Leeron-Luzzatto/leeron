@@ -32,7 +32,7 @@ namespace MtmParkingLot {
 		virtual VehicleType getType() const = 0;
 		LicensePlate getLicensePlate() const { return licensePlate; }
 		Time getEntranceTime() const { return entrance; }
-		void fineVehicle() { fine=true; }
+        bool fineVehicle(const Time& inspection_time);
 		bool operator==(const Vehicle& other) const{
 			return licensePlate == other.licensePlate;
 		}

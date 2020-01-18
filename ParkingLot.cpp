@@ -13,6 +13,7 @@ namespace MtmParkingLot{
     using std::endl;
 
     const int vehicle_types=3;
+
     ParkingLot::ParkingLot(unsigned int *parkingBlockSizes):
     blocks() {
         for(int i=0; i<vehicle_types; i++)
@@ -25,22 +26,15 @@ namespace MtmParkingLot{
         return new Handicapped(licensePlate, entranceTime);
     }
 
-    bool ParkingLot::isExist(const Vehicle& v,VehicleType& block, unsigned int& index) const{
-        VehicleType type=v.getType();
-        block=type;
-        if(type==MOTORBIKE)
-            return blocks[MOTORBIKE].getIndex(v, index);
-        bool is_in_cars=blocks[CAR].getIndex(v, index);
-        if(type==CAR)
-            return is_in_cars;
-        if(type==HANDICAPPED){
-            if(is_in_cars) {
-                block = CAR;
-                return true;
+    ParkingResult ParkingLot::getVehicle(const ParkingSpot &spot, Vehicle* result) const {
+        VehicleType block=spot.getParkingBlock();
+        unsigned index=spot.getParkingNumber();
+        for(UniqueArray<Vehicle>::iterator i=blocks[block].begin(); i!=blocks[block].end(); ++i)
+            if (i.getIndex()==index){
+                result=&(*i);
+                return SUCCESS;
             }
-            return blocks[HANDICAPPED].getIndex(v, index);
-        }
-        return false;
+        return VEHICLE_NOT_FOUND;
     }
 
     ParkingResult ParkingLot::getParkingSpot(LicensePlate licensePlate, ParkingSpot& parkingSpot) const{
@@ -49,13 +43,14 @@ namespace MtmParkingLot{
             block=(VehicleType)b;
             for(UniqueArray<Vehicle>::iterator i= blocks[block].begin(); i!=blocks[block].end(); ++i)
                 if((*i).getLicensePlate()==licensePlate){
-                    parkingSpot = ParkingSpot()
+                    parkingSpot = ParkingSpot(block, i.getIndex());
+                    return SUCCESS;
                 }
-
         }
+        return VEHICLE_ALREADY_PARKED;
     }
 
-    bool ParkingLot::isEmptyBlock4Vehicle(VehicleType type, VehicleType &block) const{
+    bool ParkingLot::isEmptyBlock4Vehicle(const VehicleType& type, VehicleType &block) const{
         if(blocks[type].getSize()>blocks[type].getCount()){
             block=type;
             return true;
@@ -68,17 +63,19 @@ namespace MtmParkingLot{
     }
 
     ParkingResult ParkingLot::enterParking(VehicleType vehicleType, LicensePlate licensePlate, Time entranceTime){
-        Vehicle* new_v=createVehicle(vehicleType, licensePlate, entranceTime);
-        unsigned int index;
-        VehicleType block=MOTORBIKE;
-        cout<<*new_v<<endl;
-        if(isExist(*new_v, block, index)){
-            ParkingLotPrinter::printEntryFailureAlreadyParked(cout, ParkingSpot(block, index));
-            delete(new_v);
+        ParkingSpot spot(MOTORBIKE);
+        if(getParkingSpot(licensePlate, spot)){
+            Vehicle* found= nullptr;
+            getVehicle(spot, found);
+            cout<<*found<<endl;
+            ParkingLotPrinter::printEntryFailureAlreadyParked(cout, spot);
             return VEHICLE_ALREADY_PARKED;
         }
+        Vehicle* new_v=createVehicle(vehicleType, licensePlate, entranceTime);
+        cout<<*new_v<<endl;
+        VehicleType block=MOTORBIKE;
         if(isEmptyBlock4Vehicle(vehicleType, block)){
-            index=blocks[block].insert(*new_v);
+            unsigned index=blocks[block].insert(*new_v);
             ParkingLotPrinter::printEntrySuccess(cout, ParkingSpot(block, index));
             delete(new_v);
             return SUCCESS;
@@ -86,6 +83,20 @@ namespace MtmParkingLot{
         ParkingLotPrinter::printEntryFailureNoSpot(cout);
         delete(new_v);
         return NO_EMPTY_SPOT;
+    }
+
+    void ParkingLot::inspectParkingLot(Time inspectionTime){
+        VehicleType block;
+        unsigned fines=0;
+        for(int b=0; b<vehicle_types; b++){
+            block=(VehicleType)b;
+            for(UniqueArray<Vehicle>::iterator i= blocks[block].begin(); i!=blocks[block].end(); ++i)
+                if((*i).fineVehicle(inspectionTime)){
+                    cout<<*i<<endl;
+                    fines++;
+                }
+        }
+        ParkingLotPrinter::printInspectionResult(cout, inspectionTime, fines);
     }
 
 }

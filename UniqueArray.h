@@ -26,26 +26,33 @@ public:
     UniqueArray filter(const Filter& f) const;
     class UniqueArrayIsFullException{};
 
-    class iterator {
+    template<class iterator_element>
+    class temp_iterator {
         UniqueArray* unique_array;
         int index;
 
-        explicit iterator(UniqueArray* unique_array, int index);
+        explicit temp_iterator(UniqueArray* unique_array, int index);
         int initializeIterator(int start=0) const;
         static const int end_unique_array = -1;
     public:
-        iterator(UniqueArray* unique_array);
-        iterator(const iterator& i) = default;
-        iterator& operator=(const iterator& other) = default;
-        Element& operator*() const;
-        iterator& operator++(); // postfix increment
-        bool operator==(const iterator& other) const;
-        bool operator!=(const iterator& other) const;
+        temp_iterator(UniqueArray* unique_array);
+        temp_iterator(const temp_iterator& i) = default;
+        temp_iterator& operator=(const temp_iterator& other) = default;
+        iterator_element& operator*() const;
+        temp_iterator& operator++(); // postfix increment
+        bool operator==(const temp_iterator& other) const;
+        bool operator!=(const temp_iterator& other) const;
         friend class UniqueArray<Element, Compare>;
     };
+    typedef temp_iterator<Element> iterator;
+    typedef temp_iterator<const Element> const_iterator;
     friend class iterator;
+    friend class const_iterator;
+
     iterator begin();
     iterator end();
+    iterator begin() const;
+    iterator end() const;
 };
 
 #include "UniqueArrayImp.h"

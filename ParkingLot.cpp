@@ -137,7 +137,7 @@ namespace MtmParkingLot{
             block=(VehicleType)b;
             for(UniqueArray<Vehicle>::iterator i= parkingLot.blocks[block].begin();
             i!=parkingLot.blocks[block].end(); ++i)
-               all_vehicles.push_back(*i);
+                all_vehicles.push_back(*i);
         }
         sort(all_vehicles.begin(), all_vehicles.end(), diffBySpot);
         ParkingLotPrinter::printParkingLotTitle(os);

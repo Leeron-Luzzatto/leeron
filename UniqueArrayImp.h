@@ -163,13 +163,13 @@ const{
 
 template <class Element, class Compare>
 typename UniqueArray<Element, Compare>::iterator
-UniqueArray<Element, Compare>::begin(){
+UniqueArray<Element, Compare>::begin() {
 	return UniqueArray<Element, Compare>::iterator(this);
 }
 
 template <class Element, class Compare>
 typename UniqueArray<Element, Compare>::iterator
-UniqueArray<Element, Compare>::end(){
+UniqueArray<Element, Compare>::end() {
 	return UniqueArray<Element, Compare>::iterator
 	(this, iterator::end_unique_array);
 }

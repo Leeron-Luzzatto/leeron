@@ -15,7 +15,6 @@ public:
     unsigned int insert(const Element& element);
     bool getIndex(const Element& element, unsigned int& index) const;
     const Element* operator[] (const Element& element) const;
-    bool operator== (const UniqueArray& other) const;
     bool remove(const Element& element);
     unsigned int getCount() const;
     unsigned int getSize() const;
@@ -28,14 +27,14 @@ public:
     class UniqueArrayIsFullException{};
 
     class iterator {
-        UniqueArray const unique_array;
+        UniqueArray* unique_array;
         int index;
 
-        explicit iterator(UniqueArray unique_array, int index);
+        explicit iterator(UniqueArray* unique_array, int index);
         int initializeIterator(int start=0) const;
         static const int end_unique_array = -1;
     public:
-        iterator(UniqueArray unique_array);
+        iterator(UniqueArray* unique_array);
         iterator(const iterator& i) = default;
         iterator& operator=(const iterator& other) = default;
         Element& operator*() const;
@@ -45,8 +44,8 @@ public:
         friend class UniqueArray<Element, Compare>;
     };
     friend class iterator;
-    iterator begin() const;
-    iterator end() const;
+    iterator begin();
+    iterator end();
 };
 
 #include "UniqueArrayImp.h"

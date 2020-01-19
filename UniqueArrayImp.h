@@ -31,31 +31,6 @@ UniqueArray<Element, Compare>::~UniqueArray() {
 }
 
 template <class Element, class Compare>
-bool UniqueArray<Element, Compare>::operator==(const UniqueArray& other) const{
-	if (size != other.size) {
-		return false;
-	}
-	for (int i = 0; i < size; ++i) {
-		if (data[i] == NULL) {
-			if (other.data[i] != NULL) {
-				return false;
-			}
-			continue;
-		}
-		if (other.data[i] == NULL) {
-			if (data[i] != NULL) {
-				return false;
-			}
-			continue;
-		}
-		if (!Compare()(*data[i], *other.data[i])) {
-			return false;
-		}
-	}
-	return true;
-}
-
-template <class Element, class Compare>
 bool UniqueArray<Element, Compare>::availableIndex(unsigned int& index) {
 	for (int i = 0; i < size; ++i) {
 		if (data[i] == NULL) {
@@ -143,8 +118,8 @@ filter(const Filter& f) const {
 template <class Element, class Compare>
 int UniqueArray<Element, Compare>::iterator::initializeIterator(int start)
 const {
-	for (int i = start; i < unique_array.size; ++i) {
-		if (unique_array.data[i] != NULL) {
+	for (int i = start; i < unique_array->size; ++i) {
+		if (unique_array->data[i] != NULL) {
 			return i;
 		}
 	}
@@ -153,18 +128,18 @@ const {
 
 template <class Element, class Compare>
 UniqueArray<Element, Compare>::iterator::
-iterator(UniqueArray unique_array, int index) :
+iterator(UniqueArray* unique_array, int index) :
 	unique_array(unique_array), index(index) {
 }
 
 template <class Element, class Compare>
-UniqueArray<Element,Compare>::iterator::iterator(UniqueArray unique_array):
+UniqueArray<Element,Compare>::iterator::iterator(UniqueArray* unique_array):
 	unique_array(unique_array), index(initializeIterator()){
 }
 
 template <class Element, class Compare>
 Element& UniqueArray<Element, Compare>::iterator::operator*() const {
-	return *(unique_array.data[index]);
+	return *(unique_array->data[index]);
 }
 
 template <class Element, class Compare>
@@ -188,15 +163,15 @@ const{
 
 template <class Element, class Compare>
 typename UniqueArray<Element, Compare>::iterator
-UniqueArray<Element, Compare>::begin() const{
-	return UniqueArray<Element, Compare>::iterator(*this);
+UniqueArray<Element, Compare>::begin(){
+	return UniqueArray<Element, Compare>::iterator(this);
 }
 
 template <class Element, class Compare>
 typename UniqueArray<Element, Compare>::iterator
-UniqueArray<Element, Compare>::end() const{
+UniqueArray<Element, Compare>::end(){
 	return UniqueArray<Element, Compare>::iterator
-	(*this, iterator::end_unique_array);
+	(this, iterator::end_unique_array);
 }
 
 #endif //MTMPARKINGLOT_UNIQUEARRAYIMP_H

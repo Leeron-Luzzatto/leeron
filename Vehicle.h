@@ -26,12 +26,13 @@ namespace MtmParkingLot {
 		unsigned int price_for_first;
 
 	public:
-		explicit Vehicle(LicensePlate licensePlate, Time entrance, Time max_time=Time(),
-			unsigned int price_for_extra=0, unsigned int price_for_first = 0,
-			ParkingSpot spot=ParkingSpot((VehicleType)0, 0))
-			: licensePlate(licensePlate), entrance(entrance),max_time(max_time),
-			 fine(false), price_for_extra(price_for_extra), price_for_first(price_for_first), spot(spot) {
-		}
+        explicit Vehicle(LicensePlate licensePlate, Time entrance, Time max_time=Time(),
+                         unsigned int price_for_extra=0, unsigned int price_for_first = 0,
+                         ParkingSpot spot=ParkingSpot((VehicleType)0, 0))
+                : licensePlate(licensePlate), fine(false) {
+            this->entrance=entrance, this->max_time=max_time, this->price_for_extra=price_for_extra,
+            this->price_for_first=price_for_first, this->spot=spot;
+        }
 
 		Vehicle(const Vehicle& other) = default;
         virtual ParkingSpot getSpot() const { return  spot; }

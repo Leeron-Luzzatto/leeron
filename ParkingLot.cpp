@@ -46,7 +46,7 @@ namespace MtmParkingLot{
         VehicleType block;
         for(int b=0; b<vehicle_types; b++){
             block=(VehicleType)b;
-            for(UniqueArray<Vehicle>::const_iterator i= blocks[block].begin(); i!=blocks[block].end(); ++i)
+            for(UniqueArray<Vehicle>::const_iterator i= blocks[block].const_begin(); i!=blocks[block].const_end(); ++i)
                 if((*i).getLicensePlate()==licensePlate){
                     parkingSpot = (*i).getSpot();
                     return SUCCESS;
@@ -135,8 +135,8 @@ namespace MtmParkingLot{
         VehicleType block;
         for(int b=0; b<vehicle_types; b++){
             block=(VehicleType)b;
-            for(UniqueArray<Vehicle>::const_iterator i= parkingLot.blocks[block].begin();
-            i!=parkingLot.blocks[block].end(); ++i)
+            for(UniqueArray<Vehicle>::const_iterator i= parkingLot.blocks[block].const_begin();
+            i!=parkingLot.blocks[block].const_end(); ++i)
                 all_vehicles.push_back(*i);
         }
         sort(all_vehicles.begin(), all_vehicles.end(), diffBySpot);

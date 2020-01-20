@@ -1,7 +1,9 @@
 #ifndef MTMPARKINGLOT_UNIQUEARRAY_H
 #define MTMPARKINGLOT_UNIQUEARRAY_H
 
-template <class Element, class Compare = std::equal_to<Element>>
+#include <iostream>
+
+template <class Element, class Compare = std::equal_to<Element> >
 class UniqueArray {
 	Element** data;
 	const int size;
@@ -67,8 +69,10 @@ public:
     friend class const_iterator;
     const_iterator const_begin() const;
     const_iterator const_end() const;
+
+
 };
 
-#include "UniqueArrayImp.h"
+    #include "UniqueArrayImp.h"
 
 #endif //MTMPARKINGLOT_UNIQUEARRAY_H

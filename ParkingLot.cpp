@@ -73,7 +73,7 @@ namespace MtmParkingLot{
         cout<<*new_v<<endl;
         unsigned index=blocks[block].insert(*new_v);
         delete(new_v);
-        Vehicle* v;
+        Vehicle* v= nullptr;
         getVehicle(ParkingSpot(block, index), v); // init *v
         v->setSpot(ParkingSpot(block, index));
         ParkingLotPrinter::printEntrySuccess(cout, ParkingSpot(block, index));

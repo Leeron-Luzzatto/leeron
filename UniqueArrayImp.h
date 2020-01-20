@@ -2,7 +2,7 @@
 #define MTMPARKINGLOT_UNIQUEARRAYIMP_H
 
 template <class Element, class Compare>
-UniqueArray<Element,Compare>::UniqueArray<Element, Compare>(unsigned int size):
+UniqueArray<Element, Compare>::UniqueArray(unsigned int size):
 	data(new Element*[size]), size(size){
 	for (unsigned int i = 0; i < size; ++i) {
 		data[i] = nullptr;
@@ -10,7 +10,7 @@ UniqueArray<Element,Compare>::UniqueArray<Element, Compare>(unsigned int size):
 }
 
 template <class Element, class Compare>
-UniqueArray<Element, Compare>::UniqueArray<Element, Compare>(const UniqueArray& other):
+UniqueArray<Element, Compare>::UniqueArray(const UniqueArray& other):
 	data(new Element*[other.size]), size(other.size) {
 	for (int i = 0; i < size; ++i) {
 		if (other.data[i] == NULL) {

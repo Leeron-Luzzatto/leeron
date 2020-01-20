@@ -65,8 +65,8 @@ public:
         friend class UniqueArray<Element, Compare>;
     };
     friend class const_iterator;
-    const_iterator begin() const;
-    const_iterator end() const;
+    const_iterator const_begin() const;
+    const_iterator const_end() const;
 };
 
 #include "UniqueArrayImp.h"

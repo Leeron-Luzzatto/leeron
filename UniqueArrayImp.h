@@ -223,13 +223,13 @@ const {
 
 template <class Element, class Compare>
 typename UniqueArray<Element, Compare>::const_iterator
-UniqueArray<Element, Compare>::begin() const {
+UniqueArray<Element, Compare>::const_begin() const {
 	return UniqueArray<Element, Compare>::const_iterator(this);
 }
 
 template <class Element, class Compare>
 typename UniqueArray<Element, Compare>::const_iterator
-UniqueArray<Element, Compare>::end() const {
+UniqueArray<Element, Compare>::const_end() const {
 	return UniqueArray<Element, Compare>::iterator
 	(this, const_iterator::end_unique_array);
 }

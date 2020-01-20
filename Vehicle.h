@@ -34,7 +34,6 @@ namespace MtmParkingLot {
             this->price_for_first=price_for_first, this->spot=spot;
         }
 		virtual ~Vehicle() {
-
 		}
 
 		Vehicle(const Vehicle& other) = default;

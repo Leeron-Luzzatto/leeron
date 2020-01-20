@@ -33,7 +33,7 @@ namespace MtmParkingLot{
     ParkingResult ParkingLot::getVehicle(const ParkingSpot &spot, Vehicle* result) const {
         VehicleType block=spot.getParkingBlock();
         unsigned index=spot.getParkingNumber();
-        for(UniqueArray<Vehicle>::iterator i=blocks[block].begin(); i!=blocks[block].end(); ++i) {
+        for(UniqueArray<Vehicle>::const_iterator i=blocks[block].begin(); i!=blocks[block].end(); ++i) {
             if ((*i).getSpot().getParkingNumber() == index) {
                 result = &(*i);
                 return SUCCESS;
@@ -46,7 +46,7 @@ namespace MtmParkingLot{
         VehicleType block;
         for(int b=0; b<vehicle_types; b++){
             block=(VehicleType)b;
-            for(UniqueArray<Vehicle>::iterator i= blocks[block].begin(); i!=blocks[block].end(); ++i)
+            for(UniqueArray<Vehicle>::const_iterator i= blocks[block].begin(); i!=blocks[block].end(); ++i)
                 if((*i).getLicensePlate()==licensePlate){
                     parkingSpot = (*i).getSpot();
                     return SUCCESS;
@@ -135,7 +135,7 @@ namespace MtmParkingLot{
         VehicleType block;
         for(int b=0; b<vehicle_types; b++){
             block=(VehicleType)b;
-            for(UniqueArray<Vehicle>::iterator i= parkingLot.blocks[block].begin();
+            for(UniqueArray<Vehicle>::const_iterator i= parkingLot.blocks[block].begin();
             i!=parkingLot.blocks[block].end(); ++i)
                 all_vehicles.push_back(*i);
         }

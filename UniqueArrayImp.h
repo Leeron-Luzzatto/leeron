@@ -163,15 +163,75 @@ const{
 
 template <class Element, class Compare>
 typename UniqueArray<Element, Compare>::iterator
-UniqueArray<Element, Compare>::begin() {
+UniqueArray<Element, Compare>::begin(){
 	return UniqueArray<Element, Compare>::iterator(this);
 }
 
 template <class Element, class Compare>
 typename UniqueArray<Element, Compare>::iterator
-UniqueArray<Element, Compare>::end() {
+UniqueArray<Element, Compare>::end(){
 	return UniqueArray<Element, Compare>::iterator
 	(this, iterator::end_unique_array);
+}
+
+template <class Element, class Compare>
+int UniqueArray<Element, Compare>::const_iterator::initializeIterator(int start)
+const {
+	for (int i = start; i < unique_array->size; ++i) {
+		if (unique_array->data[i] != NULL) {
+			return i;
+		}
+	}
+	return end_unique_array;
+}
+
+template <class Element, class Compare>
+UniqueArray<Element, Compare>::const_iterator::
+const_iterator(const UniqueArray* const unique_array, int i) :
+	unique_array(unique_array), index(i) {
+}
+
+template <class Element, class Compare>
+UniqueArray<Element, Compare>::const_iterator::
+const_iterator(const UniqueArray* const unique_array) :
+	unique_array(unique_array), index(initializeIterator()) {
+}
+
+template <class Element, class Compare>
+const Element& UniqueArray<Element, Compare>::const_iterator::operator*() const {
+	return *(unique_array->data[index]);
+}
+
+template <class Element, class Compare>
+typename UniqueArray<Element, Compare>::const_iterator&
+UniqueArray<Element, Compare>::const_iterator::operator++() {
+	index = initializeIterator(index + 1);
+	return *this;
+}
+
+template <class Element, class Compare>
+bool UniqueArray<Element, Compare>::const_iterator::operator==(const const_iterator& other)
+const {
+	return unique_array == other.unique_array && index == other.index;
+}
+
+template <class Element, class Compare>
+bool UniqueArray<Element, Compare>::const_iterator::operator!=(const const_iterator& other)
+const {
+	return !(*this == other);
+}
+
+template <class Element, class Compare>
+typename UniqueArray<Element, Compare>::const_iterator
+UniqueArray<Element, Compare>::begin() const {
+	return UniqueArray<Element, Compare>::const_iterator(this);
+}
+
+template <class Element, class Compare>
+typename UniqueArray<Element, Compare>::const_iterator
+UniqueArray<Element, Compare>::end() const {
+	return UniqueArray<Element, Compare>::iterator
+	(this, const_iterator::end_unique_array);
 }
 
 #endif //MTMPARKINGLOT_UNIQUEARRAYIMP_H

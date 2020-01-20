@@ -26,33 +26,47 @@ public:
     UniqueArray filter(const Filter& f) const;
     class UniqueArrayIsFullException{};
 
-    template<class iterator_element>
-    class temp_iterator {
+    class iterator {
         UniqueArray* unique_array;
         int index;
 
-        explicit temp_iterator(UniqueArray* unique_array, int index);
+        explicit iterator(UniqueArray* unique_array, int index);
         int initializeIterator(int start=0) const;
         static const int end_unique_array = -1;
     public:
-        temp_iterator(UniqueArray* unique_array);
-        temp_iterator(const temp_iterator& i) = default;
-        temp_iterator& operator=(const temp_iterator& other) = default;
-        iterator_element& operator*() const;
-        temp_iterator& operator++(); // postfix increment
-        bool operator==(const temp_iterator& other) const;
-        bool operator!=(const temp_iterator& other) const;
+        iterator(UniqueArray* unique_array);
+        iterator(const iterator& i) = default;
+        iterator& operator=(const iterator& other) = default;
+        Element& operator*() const;
+        iterator& operator++(); // postfix increment
+        bool operator==(const iterator& other) const;
+        bool operator!=(const iterator& other) const;
         friend class UniqueArray<Element, Compare>;
     };
-    typedef temp_iterator<Element> iterator;
-    typedef temp_iterator<const Element> const_iterator;
     friend class iterator;
-    friend class const_iterator;
-
     iterator begin();
     iterator end();
-    iterator begin() const;
-    iterator end() const;
+
+    class const_iterator {
+        const UniqueArray* const unique_array;
+        int index;
+
+        explicit const_iterator(const UniqueArray* const unique_array, int i);
+        int initializeIterator(int start = 0) const;
+        static const int end_unique_array = -1;
+    public:
+        const_iterator(const UniqueArray* const unique_array);
+        const_iterator(const const_iterator& i) = default;
+        const_iterator& operator=(const const_iterator& other) = default;
+        const Element& operator*() const;
+        const_iterator& operator++(); // postfix increment
+        bool operator==(const const_iterator& other) const;
+        bool operator!=(const const_iterator& other) const;
+        friend class UniqueArray<Element, Compare>;
+    };
+    friend class const_iterator;
+    const_iterator begin() const;
+    const_iterator end() const;
 };
 
 #include "UniqueArrayImp.h"

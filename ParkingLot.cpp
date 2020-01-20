@@ -30,10 +30,10 @@ namespace MtmParkingLot{
         return new Handicapped(licensePlate, entranceTime);
     }
 
-    ParkingResult ParkingLot::getVehicle(const ParkingSpot &spot, Vehicle* result) const {
+    ParkingResult ParkingLot::getVehicle(const ParkingSpot &spot, Vehicle* result) {
         VehicleType block=spot.getParkingBlock();
         unsigned index=spot.getParkingNumber();
-        for(UniqueArray<Vehicle>::const_iterator i=blocks[block].begin(); i!=blocks[block].end(); ++i) {
+        for(UniqueArray<Vehicle>::iterator i=blocks[block].begin(); i!=blocks[block].end(); ++i) {
             if ((*i).getSpot().getParkingNumber() == index) {
                 result = &(*i);
                 return SUCCESS;

@@ -30,26 +30,6 @@ C:/Users/Dell/Documents/GitHub/leeron/ParkingLotTypes.h
 Time.h
 C:/Users/Dell/Documents/GitHub/leeron/Time.h
 
-C:/Users/Dell/Documents/GitHub/leeron/MtmParkingLot.cpp
-ParkingLotTypes.h
-C:/Users/Dell/Documents/GitHub/leeron/ParkingLotTypes.h
-Time.h
-C:/Users/Dell/Documents/GitHub/leeron/Time.h
-ParkingLotPrinter.h
-C:/Users/Dell/Documents/GitHub/leeron/ParkingLotPrinter.h
-ParkingLot.h
-C:/Users/Dell/Documents/GitHub/leeron/ParkingLot.h
-iostream
--
-fstream
--
-string
--
-map
--
-limits
--
-
 C:/Users/Dell/Documents/GitHub/leeron/ParkingLot.cpp
 ParkingLot.h
 C:/Users/Dell/Documents/GitHub/leeron/ParkingLot.h

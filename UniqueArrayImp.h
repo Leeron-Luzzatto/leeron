@@ -2,19 +2,19 @@
 #define MTMPARKINGLOT_UNIQUEARRAYIMP_H
 
 template <class Element, class Compare>
-UniqueArray<Element,Compare>::UniqueArray(unsigned int size):
+UniqueArray<Element,Compare>::UniqueArray<Element, Compare>(unsigned int size):
 	data(new Element*[size]), size(size){
 	for (unsigned int i = 0; i < size; ++i) {
-		data[i] = NULL;
+		data[i] = nullptr;
 	}
 }
 
 template <class Element, class Compare>
-UniqueArray<Element, Compare>::UniqueArray(const UniqueArray& other):
+UniqueArray<Element, Compare>::UniqueArray<Element, Compare>(const UniqueArray& other):
 	data(new Element*[other.size]), size(other.size) {
 	for (int i = 0; i < size; ++i) {
 		if (other.data[i] == NULL) {
-			data[i] = NULL;
+			data[i] = nullptr;
 		}
 		else {
 			data[i] = new Element(*(other.data[i]));
@@ -23,7 +23,7 @@ UniqueArray<Element, Compare>::UniqueArray(const UniqueArray& other):
 }
 
 template <class Element, class Compare>
-UniqueArray<Element, Compare>::~UniqueArray() {
+UniqueArray<Element, Compare>::~UniqueArray<Element, Compare>() {
 	for (int i = 0; i < size; ++i) {
 		delete data[i];
 	}
@@ -33,7 +33,7 @@ UniqueArray<Element, Compare>::~UniqueArray() {
 template <class Element, class Compare>
 bool UniqueArray<Element, Compare>::availableIndex(unsigned int& index) {
 	for (int i = 0; i < size; ++i) {
-		if (data[i] == NULL) {
+		if (data[i] == nullptr) {
 			index = i;
 			return true;
 		}
@@ -58,7 +58,7 @@ template <class Element, class Compare>
 bool UniqueArray<Element, Compare>::getIndex(const Element& element,
 	unsigned int& index) const{
 	for (int i = 0; i < size; ++i) {
-		if (data[i] != NULL && Compare()(*data[i] ,element)) {
+		if (data[i] != nullptr && Compare()(*data[i] ,element)) {
 			index = i;
 			return true;
 		}
@@ -71,7 +71,7 @@ const Element* UniqueArray<Element, Compare>::operator[]
 (const Element& element) const{
 	unsigned int index=0;
 	if (!getIndex(element, index)){
-		return NULL;
+		return nullptr;
 	}
 	return data[index];
 }
@@ -83,7 +83,7 @@ bool UniqueArray<Element, Compare>::remove(const Element& element) {
 		return false;
 	}
 	delete data[index];
-	data[index] = NULL;
+	data[index] = nullptr;
 	return true;
 }
 
@@ -91,7 +91,7 @@ template <class Element, class Compare>
 unsigned int UniqueArray<Element, Compare>::getCount() const{
 	unsigned int count = 0;
 	for (int i = 0; i < size; ++i) {
-		if (data[i] != NULL) {
+		if (data[i] != nullptr) {
 			++count;
 		}
 	}
@@ -108,7 +108,7 @@ UniqueArray<Element, Compare> UniqueArray<Element, Compare>::
 filter(const Filter& f) const {
 	UniqueArray<Element, Compare> filtered_array(*this);
 	for (int i = 0; i < size; ++i) {
-		if (data[i] != NULL && !f(*data[i])) {
+		if (data[i] != nullptr && !f(*data[i])) {
 			filtered_array.remove(*data[i]);
 		}
 	}
@@ -119,7 +119,7 @@ template <class Element, class Compare>
 int UniqueArray<Element, Compare>::iterator::initializeIterator(int start)
 const {
 	for (int i = start; i < unique_array->size; ++i) {
-		if (unique_array->data[i] != NULL) {
+		if (unique_array->data[i] != nullptr) {
 			return i;
 		}
 	}
@@ -178,7 +178,7 @@ template <class Element, class Compare>
 int UniqueArray<Element, Compare>::const_iterator::initializeIterator(int start)
 const {
 	for (int i = start; i < unique_array->size; ++i) {
-		if (unique_array->data[i] != NULL) {
+		if (unique_array->data[i] != nullptr) {
 			return i;
 		}
 	}

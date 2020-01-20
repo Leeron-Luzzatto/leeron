@@ -8,10 +8,10 @@ class UniqueArray {
 
     bool availableIndex(unsigned int& index);
 public:
-    UniqueArray(unsigned int size);
-    UniqueArray(const UniqueArray& other);
-    ~UniqueArray();
-    UniqueArray& operator=(const UniqueArray&) = delete;
+    UniqueArray<Element, Compare>(unsigned int size);
+    UniqueArray<Element, Compare>(const UniqueArray& other);
+    ~UniqueArray<Element, Compare>();
+    UniqueArray<Element, Compare>& operator=(const UniqueArray&) = delete;
     unsigned int insert(const Element& element);
     bool getIndex(const Element& element, unsigned int& index) const;
     const Element* operator[] (const Element& element) const;

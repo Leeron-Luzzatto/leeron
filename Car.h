@@ -17,11 +17,8 @@ namespace MtmParkingLot{
 
 	class Car : public Vehicle {
 	public:
-		explicit Car(LicensePlate licensePlate, Time entrance,
-			const unsigned int max_hour= car_max_hour,
-			unsigned int first_hour= car_first_price,
-			const unsigned int extra_price = 10): Vehicle(licensePlate,
-			entrance, Time(0, max_hour, 0), first_hour, extra_price) {
+		explicit Car(LicensePlate licensePlate, Time entrance):
+		Vehicle(licensePlate, entrance, Time(0, car_max_hour, 0), car_first_price, car_extra_price) {
 		}
 
 		Car(const Car& other) = default;

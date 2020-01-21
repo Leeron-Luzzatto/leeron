@@ -15,11 +15,11 @@ namespace MtmParkingLot {
 	const unsigned int handicapped_extra_price = 0;
 	const unsigned int handicapped_max_hour = 1;
 
-	class Handicapped : public Car {
+	class Handicapped : public Vehicle {
 	public:
 		explicit Handicapped(LicensePlate licensePlate, Time entrance) :
-			Car(licensePlate, entrance, handicapped_max_hour,
-				handicapped_first_price, handicapped_extra_price) {}
+                Vehicle(licensePlate, entrance, Time(0, handicapped_max_hour, 0), handicapped_first_price,
+                        handicapped_extra_price) {}
 
 		Handicapped(const Handicapped& other) = default;
 		

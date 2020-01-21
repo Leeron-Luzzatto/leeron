@@ -15,6 +15,7 @@ public:
     ~UniqueArray<Element, Compare>();
     UniqueArray<Element, Compare>& operator=(const UniqueArray&) = delete;
     unsigned int insert(const Element& element);
+    unsigned int insert_by_reference(Element& element);
     bool getIndex(const Element& element, unsigned int& index) const;
     const Element* operator[] (const Element& element) const;
     bool remove(const Element& element);

@@ -21,9 +21,9 @@ namespace MtmParkingLot {
         static Vehicle* createVehicle(VehicleType vehicleType,
                 const LicensePlate& licensePlate, const Time& entranceTime);
         bool isEmptyBlock4Vehicle(const VehicleType& type, VehicleType& block) const;
-        ParkingResult getVehicle(const ParkingSpot& spot, Vehicle* result);
+        ParkingResult getVehicle(const ParkingSpot &spot, UniqueArray<Vehicle>::iterator& result);
         void insertVehicleToBlock(VehicleType vehicleType, LicensePlate licensePlate,
-                Time entranceTime, VehicleType block); //the method assumes there us a place 4 the vehicle in the block
+                Time entranceTime, VehicleType block); //the method assumes there is a place 4 the vehicle in the block
     public:
 
         explicit ParkingLot(unsigned int parkingBlockSizes[]);

@@ -33,7 +33,7 @@ namespace MtmParkingLot {
             this->entrance=entrance, this->max_time=max_time, this->price_for_extra=price_for_extra,
             this->price_for_first=price_for_first, this->spot=spot;
         }
-		virtual ~Vehicle() {}
+		virtual ~Vehicle() = default;
 		Vehicle()= default;
 
 		Vehicle(const Vehicle& other) = default;

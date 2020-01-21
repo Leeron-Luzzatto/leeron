@@ -17,9 +17,8 @@ namespace MtmParkingLot {
 	class Motorbike : public Vehicle {
 	public:
 		explicit Motorbike(LicensePlate licensePlate, Time entrance) :
-			Vehicle(licensePlate, entrance, Time(0, motorbike_max_hour, 0),
-				motorbike_extra_price, motorbike_first_price) {
-		}
+                Vehicle(licensePlate, entrance, Time(0, motorbike_max_hour, 0), motorbike_first_price,
+                        motorbike_extra_price) { }
 
 		Motorbike(const Motorbike& other) = default;
 		

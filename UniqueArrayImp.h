@@ -55,6 +55,19 @@ unsigned int UniqueArray<Element, Compare>::insert(const Element& element) {
 }
 
 template <class Element, class Compare>
+unsigned int UniqueArray<Element, Compare>::insert_by_reference(Element& element){
+    unsigned int index = 0;
+	if (getIndex(element, index)) {  // Checks if the element is already exists
+		return index;
+	}
+	if (!availableIndex(index)) { // Checks if the array is full
+		throw UniqueArrayIsFullException();
+	}
+	data[index] = &(element);
+	return index;
+}
+
+template <class Element, class Compare>
 bool UniqueArray<Element, Compare>::getIndex(const Element& element,
 	unsigned int& index) const{
 	for (int i = 0; i < size; ++i) {
